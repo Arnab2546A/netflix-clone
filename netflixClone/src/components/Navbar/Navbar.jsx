@@ -7,10 +7,24 @@ import profile_img from "../../assets/profile_img.png";
 import caret_icon from "../../assets/caret_icon.svg";
 import { logout } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const navRaf = useRef(null);
   const navigate = useNavigate();
+  const [check, setCheck] = React.useState(false);
+
+ useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+    setCheck(true) // Redirect to home if the user is authenticated
+      } else {
+        setCheck(false) // Redirect to login if the user is not authenticated
+      }
+    });
+  }, [navigate, location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +47,8 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await logout();
-    // navigate("/login"); // Redirect to login page after logout
+
+     navigate("/login"); // Redirect to login page after logout
   };
 
   return (
@@ -57,8 +72,12 @@ const Navbar = () => {
           <img src={profile_img} alt="" className="profile" />
           <img src={caret_icon} alt="" />
           <div className="dropdown">
-            <p onClick={handleLogout}>Sign out of Netflix</p>
-          </div>
+  {check ? (
+    <p onClick={handleLogout}>Sign out of Netflix</p>
+  ) : (
+    <p onClick={() => navigate("/login")}>Sign in to Netflix</p>
+  )}
+</div>
         </div>
       </div>
     </div>

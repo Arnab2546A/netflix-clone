@@ -34,7 +34,7 @@ const Player = () => {
             setApiData(res.results[0]);
           } else {
             alert("Movie details are not available.");
-            navigate("/"); // Redirect to home or another fallback route
+            navigate("/home"); // Redirect to home or another fallback route
           }
         }
       })
@@ -42,7 +42,7 @@ const Player = () => {
         if (isMounted) {
           console.error("Error fetching movie details:", err);
           alert("Failed to fetch movie details. Please try again later.");
-          navigate("/"); // Redirect to home or another fallback route
+          navigate("/home"); // Redirect to home or another fallback route
         }
       });
 
@@ -57,7 +57,7 @@ const Player = () => {
         src={back_arrow_icon}
         alt="Back"
         onClick={() => {
-          navigate('/');
+          navigate('/home');
         }}
       />
           <iframe
