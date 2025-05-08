@@ -6,7 +6,7 @@ A responsive, full-featured **Netflix clone** built with **React**, styled to mi
 
 ## 🔥 Live Demo
 
-🚀 [View Live](https://netfixbyad.netlify.app)
+🚀 [View Live](netfixbyad.vercel.app)
 
 ---
 
